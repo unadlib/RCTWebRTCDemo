@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - '8'
+  - '9'
+after_success:
+  - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+before_deploy:
+  - ./scripts/prepare_release.sh && cd release
+after_deploy:
+  - cd ../
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: ../scripts/start_release.sh
+    on:
+      node: '9'
+      condition: "$TRAVIS_TAG == ''"
+      branches:
+        only:
+          - master
+  - provider: npm
+    email: embbnux@embbnux.com
+    skip_cleanup: true
+    api_key:
+      secure: KIgSQdbSKibrvyaxhQq9s/Qr3ZGQuBIhMdeZRQfI89+mXVbIdrLpWu5Hb+/TvoPfEIhh66ym7cOe06juY2p1dS/5VdYJaKsd9txo6NEFzYwdMdT7y16lmxkY34Eqsi6bdwdIZs4VHWJ5uDcBV6lAKnemgzkKWr1Mz+FiYAflAVbo8QNFTXzfZVZel/NrsP1s3iv/h5vtWWkX15YEwbXOZn468Ap/FgK3rMc8uOP9dkqL15cpQCfthZQDe2cXEdkQjr6sj/gOBbKDv2Rq/I6hdMOyVP7s9RsetMZwkb1+ucLLHed5f/bPMCBwTi/zsEPH8s3f/0z9FI6c31PJjkwKS6Z1UP7Urdx5yfxW95+EQUsYNL0+qCXHwEb+VYvyLNPW8H3/tUlQfFVNeVSjdAs+uXTtsENEsynYuxLHzKKxoOHSmVWDZSAoX4Tjqj0e8QE/rtsS0OzpQALbcI93uE/w1KeelMGwnHuEVDtb4i88lBgscsMNXpUM0+6rjoGPWjjEDiC60CI85w4wbUYZZUovK2ghLPFQMo/i84pGBbqNKKMz3Vzg2ClM0HiJfocgkSExflTJee+x6RBfEx2WqeJxzHUG99jds6a6HMN9Nn8hHAooaooKaiC4JnJ1F6EFCQ5qDvcKQkqtMbFdcxHlVj22nAWO8p2zRhEf+MvOxVW35mU=
+    on:
+      node: '9'
+      tags: true
+      condition: "$TRAVIS_TAG =~ ^[0-9]+.[0-9]+.[0-9]+"
+      repo: ringcentral/ringcentral-js-integration-commons

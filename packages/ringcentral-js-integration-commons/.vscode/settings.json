@@ -1,0 +1,19 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "javascript.validate.enable": false,
+  "editor.rulers": [
+    100
+  ],
+  "search.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "build/**": true,
+    "release/**": true,
+    "demo-extension-build": true,
+    "coverage": true
+  },
+  "files.eol": "\n"
+}
