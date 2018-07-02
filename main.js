@@ -35,15 +35,13 @@ global.RTCSessionDescription = RTCSessionDescription;
 global.RTCMediaStream = RTCMediaStream;
 
 import RingCentral from './packages/ringcentral-js';
-import account from './account.json';
+import config from './config.json';
 
-const option = {
-  appKey: 'eac8797af1b3502F2CEAAEECAC3Ed378AA7858A386656f28A008b0c638A754B1',
-  appSecret: 'c082702E4ea4DA18c4b1377917778a8aafabCA3Be579B78B66d17C36874b27F4',
-  appName: 'appName',
-  appVersion: 'appVersion',
-  server: 'https://api-rcapps.ringcentral.com'
-};
+const {
+  account,
+  option,
+  invitePhoneNumber
+} = config;
 const sdk = new RingCentral(option);
 const platform = sdk.platform();
 let webphone;
@@ -94,7 +92,7 @@ const RCTWebRTCDemo = React.createClass({
     // this.refs.roomID.blur();
     // this.setState({status: 'connect', info: 'Connecting'});
   
-    this.session = webphone.userAgent.invite('+18185321061', {
+    this.session = webphone.userAgent.invite(invitePhoneNumber, {
         // media: {
         //     render: {
         //         remote: document.getElementById('remoteVideo'),
