@@ -4,7 +4,7 @@
             return factory(SIP);
         });
     } else if (typeof module === 'object') {
-        module.exports = factory(require('../../sip-0.11.0.js'));
+        module.exports = factory(require('../../sip-0.10.0.js'));
         module.exports.default = module.exports; //ES6
     } else {
         root.RingCentral = root.RingCentral || {};
@@ -174,7 +174,10 @@
                 traceSip: true,
 
             },
-            
+          wsServers: this.sipInfo.outboundProxy && this.sipInfo.transport
+            ? this.sipInfo.transport.toLowerCase() + '://' + this.sipInfo.outboundProxy
+            : this.sipInfo.wsServers,
+          traceSip: true,
             authorizationUser: this.sipInfo.authorizationId,
             password: this.sipInfo.password,
             stunServers: this.sipInfo.stunServers || ['stun:74.125.194.127:19302'], //FIXME Hardcoded?

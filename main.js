@@ -1,5 +1,5 @@
 'use strict';
-
+global.Buffer = global.Buffer || require('buffer').Buffer
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -65,7 +65,7 @@ async function createWebPhone() {
         //   return new SIP.WebRTC.MediaHandler(session, options);
         // }
         sessionDescriptionHandlerFactory: function (logger, observer, options) {
-          const SessionDescriptionHandler = require('./SessionDescriptionHandler')(require('sip.js/dist/sip-0.11.0.js'));
+          const SessionDescriptionHandler = require('./packages/SessionDescriptionHandler.js')(require('./packages/sip-0.10.0.js'));
           const sdh = new SessionDescriptionHandler(logger, observer, options);
           return sdh;
       }
